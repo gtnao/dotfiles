@@ -1,19 +1,11 @@
-- name: Install software-properties-common
+- name: Download Neovim AppImage
   become: yes
-  apt:
-    name: software-properties-common
-    state: present
-- name: Add NeoVim PPA
+  get_url:
+    url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    dest: /usr/bin/nvim
+    mode: '0755'
+- name: Make Neovim AppImage executable
   become: yes
-  apt_repository:
-    repo: ppa:neovim-ppa/stable
-    state: present
-- name: Update apt cache
-  become: yes
-  apt:
-    update_cache: yes
-- name: Install NeoVim
-  become: yes
-  apt:
-    name: neovim
-    state: present
+  file:
+    path: /usr/bin/nvim
+    mode: 'u+x'
