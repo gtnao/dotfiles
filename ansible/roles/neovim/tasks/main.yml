@@ -1,0 +1,19 @@
+- name: Install software-properties-common
+  become: yes
+  apt:
+    name: software-properties-common
+    state: present
+- name: Add NeoVim PPA
+  become: yes
+  apt_repository:
+    repo: ppa:neovim-ppa/stable
+    state: present
+- name: Update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+- name: Install NeoVim
+  become: yes
+  apt:
+    name: neovim
+    state: present

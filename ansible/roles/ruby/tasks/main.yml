@@ -1,0 +1,37 @@
+- name: Install development tools and libraries
+  become: yes
+  apt:
+    name:
+      - autoconf
+      - patch
+      - build-essential
+      - rustc
+      - libssl-dev
+      - libyaml-dev
+      - libreadline6-dev
+      - zlib1g-dev
+      - libgmp-dev
+      - libncurses5-dev
+      - libffi-dev
+      - libgdbm6
+      - libgdbm-dev
+      - libdb-dev
+      - uuid-dev
+    state: present
+- name: Install asdf Ruby plugin
+  shell: |
+    . "{{ ansible_env.HOME }}/.asdf/asdf.sh"
+    asdf plugin add ruby
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: "{{ ansible_env.HOME }}"
+- name: Install Ruby
+  shell: |
+    . "{{ ansible_env.HOME }}/.asdf/asdf.sh"
+    asdf install ruby 3.2.2
+    asdf global ruby 3.2.2
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: "{{ ansible_env.HOME }}"

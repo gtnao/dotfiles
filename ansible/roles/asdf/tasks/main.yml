@@ -1,0 +1,7 @@
+- name: Clone asdf repository
+  git:
+    repo: 'https://github.com/asdf-vm/asdf.git'
+    dest: "{{ ansible_env.HOME }}/.asdf"
+    version: v0.13.1
+    clone: yes
+    update: yes

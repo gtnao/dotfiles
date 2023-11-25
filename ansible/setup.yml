@@ -1,0 +1,11 @@
+- hosts: localhost
+  roles:
+    - common
+    - zsh
+    - neovim
+    - tmux
+    - asdf
+    - nodejs
+    - java
+    - python
+    - ruby

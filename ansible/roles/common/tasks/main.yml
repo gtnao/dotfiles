@@ -1,0 +1,15 @@
+- name: "Install build-essential"
+  become: yes
+  apt:
+    name: "build-essential"
+    state: "present"
+- name: "Install git"
+  become: yes
+  apt:
+    name: "git"
+    state: "present"
+- name: "Install curl"
+  become: yes
+  apt:
+    name: "curl"
+    state: "present"

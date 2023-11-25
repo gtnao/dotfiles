@@ -1,0 +1,17 @@
+- name: Install asdf nodejs plugin
+  shell: |
+    . "{{ ansible_env.HOME }}/.asdf/asdf.sh"
+    asdf plugin add nodejs
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: "{{ ansible_env.HOME }}"
+- name: Install Node.js
+  shell: |
+    . "{{ ansible_env.HOME }}/.asdf/asdf.sh"
+    asdf install nodejs 20.9.0
+    asdf global nodejs 20.9.0
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: "{{ ansible_env.HOME }}"
