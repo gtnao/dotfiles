@@ -5,7 +5,7 @@
     - neovim
     - tmux
     - asdf
-    - nodejs
-    - java
-    - python
-    - ruby
+    # - nodejs
+    # - java
+    # - python
+    # - ruby
