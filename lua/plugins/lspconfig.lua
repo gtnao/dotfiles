@@ -15,7 +15,7 @@ require('mason-lspconfig').setup {
     "eslint",
     "lua_ls",
     "rust_analyzer",
-    "solargraph",
+    -- "solargraph",
     "tsserver",
     "pyright",
     "terraformls",
@@ -65,7 +65,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', '<Leader>fm', function()
       if vim.bo.filetype == 'typescript' or vim.bo.filetype == 'typescriptreact' or vim.bo.filetype == 'typescript.tsx' then
-        vim.cmd([[EslintFixAll]])
+        -- TODO:
+        -- vim.cmd([[EslintFixAll]])
       end
       vim.lsp.buf.format { async = true }
     end, opts)

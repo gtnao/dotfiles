@@ -5,8 +5,8 @@
     - neovim
     - tmux
     - asdf
-    # - nodejs
-    # - java
+    - nodejs
     # - python
+    # - java
     # - ruby
     # - infra

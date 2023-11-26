@@ -10,3 +10,4 @@ vim.opt.virtualedit = 'block'
 vim.opt.showmatch = true
 vim.opt.matchtime = 1
 vim.opt.number = true
+vim.opt.termguicolors = true
