@@ -32,3 +32,20 @@
     executable: /bin/bash
   environment:
     HOME: "{{ ansible_env.HOME }}"
+- name: Install asdf gcloud plugin
+  shell: |
+    . "{{ ansible_env.HOME }}/.asdf/asdf.sh"
+    asdf plugin add gcloud
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: "{{ ansible_env.HOME }}"
+- name: Install gcloud
+  shell: |
+    . "{{ ansible_env.HOME }}/.asdf/asdf.sh"
+    asdf install gcloud latest
+    asdf global gcloud latest
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: "{{ ansible_env.HOME }}"
