@@ -17,6 +17,8 @@ require('mason-lspconfig').setup {
     "rust_analyzer",
     "solargraph",
     "tsserver",
+    "pyright",
+    "terraformls",
   },
   automatic_installation = true,
 }
@@ -48,6 +50,12 @@ lspconfig.eslint.setup {
   capabilities = capabilities,
 }
 lspconfig.solargraph.setup {
+  capabilities = capabilities,
+}
+lspconfig.pyright.setup {
+  capabilities = capabilities,
+}
+lspconfig.terraformls.setup {
   capabilities = capabilities,
 }
 
