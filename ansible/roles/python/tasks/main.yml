@@ -34,3 +34,20 @@
     executable: /bin/bash
   environment:
     HOME: "{{ ansible_env.HOME }}"
+- name: Install asdf Poetry plugin
+  shell: |
+    . "{{ ansible_env.HOME }}/.asdf/asdf.sh"
+    asdf plugin add poetry
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: "{{ ansible_env.HOME }}"
+- name: Install Poetry
+  shell: |
+    . "{{ ansible_env.HOME }}/.asdf/asdf.sh"
+    asdf install poetry 1.7.1
+    asdf global poetry 1.7.1
+  args:
+    executable: /bin/bash
+  environment:
+    HOME: "{{ ansible_env.HOME }}"
