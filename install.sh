@@ -10,7 +10,7 @@ sudo apt -y upgrade
 
 sudo apt -y install git
 mkdir -p "$DOTFILES_PARENT_DIR"
-git clone git@github.com:gtnao0219/dotfiles.git "$DOTFILES_DIR"
+git clone https://github.com/gtnao0219/dotfiles.git "$DOTFILES_DIR"
 cd "$DOTFILES_DIR"
 
 sudo apt -y install software-properties-common
