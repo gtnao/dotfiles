@@ -1,7 +1,19 @@
 [user]
   name  = naotaka nakane
   email = n.nakane0219@gmail.com
+[ui]
+  color = true
+[init]
+  defaultBranch = main
+[fetch]
+  prune = true
+[push]
+  default = current
 [alias]
-  st = status
+  br = branch
+  cm = commit -m
   co = checkout
+  rs = restore
+  st = status
   sw = switch
+  swc = switch -c
