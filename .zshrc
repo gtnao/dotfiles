@@ -2,6 +2,7 @@ alias ll="ls -lah"
 
 setopt AUTO_CD
 setopt EXTENDED_GLOB
+setopt SHARE_HISTORY 
 
 autoload -Uz compinit
 compinit
