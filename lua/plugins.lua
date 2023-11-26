@@ -52,11 +52,6 @@ return require('packer').startup(function(use)
     'tami5/lspsaga.nvim',
     config = function() require('plugins.lspsaga') end
   }
-  use {
-    'j-hui/fidget.nvim',
-    tag = 'legacy',
-    config = function() require('fidget').setup() end
-  }
   use({
     'L3MON4D3/LuaSnip',
     tag = 'v2.*',
@@ -82,7 +77,6 @@ return require('packer').startup(function(use)
     requires = {
       'nvim-lua/plenary.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-      'nvim-telescope/telescope-frecency.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim'
     },
     config = function() require('plugins.telescope') end
