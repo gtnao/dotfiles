@@ -11,6 +11,11 @@ HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+  alias vim="nvim"
+fi
+
 if which tmux >/dev/null 2>&1; then
   test -z "$TMUX" && (tmux attach || tmux new-session)
 fi
