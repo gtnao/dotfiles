@@ -13,3 +13,8 @@
   apt:
     name: "curl"
     state: "present"
+- name: "Install unzip"
+  become: yes
+  apt:
+    name: "unzip"
+    state: "present"
