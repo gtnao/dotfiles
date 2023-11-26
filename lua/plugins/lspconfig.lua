@@ -1,14 +1,15 @@
-require('mason').setup()
-require('mason-null-ls').setup({
+require("mason").setup()
+require("mason-null-ls").setup({
   ensure_installed = {
-    'prettier',
-    'shellcheck',
-    'shfmt',
+    "prettier",
+    "shellcheck",
+    "shfmt",
+    "stylua",
     -- 'sqlfluff',
   },
   automatic_installation = true,
 })
-local null_ls = require('null-ls')
+local null_ls = require("null-ls")
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.prettier.with({
@@ -16,12 +17,13 @@ null_ls.setup({
     }),
     null_ls.builtins.code_actions.shellcheck,
     null_ls.builtins.formatting.shfmt,
+    null_ls.builtins.formatting.stylua,
     -- null_ls.builtins.diagnostics.sqlfluff.with({
     --   extra_args = { "--dialect", "mysql" },
     -- }),
   },
 })
-require('mason-lspconfig').setup {
+require("mason-lspconfig").setup({
   ensure_installed = {
     "bashls",
     "cssls",
@@ -39,66 +41,70 @@ require('mason-lspconfig').setup {
     "tsserver",
   },
   automatic_installation = true,
-}
+})
 
-local lspconfig = require('lspconfig')
+local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-lspconfig.bashls.setup {
+lspconfig.bashls.setup({
   capabilities = capabilities,
-}
-lspconfig.cssls.setup {
+})
+lspconfig.cssls.setup({
   capabilities = capabilities,
-}
-lspconfig.clangd.setup {
+})
+lspconfig.clangd.setup({
   capabilities = capabilities,
-}
-lspconfig.eslint.setup {
+})
+lspconfig.eslint.setup({
   capabilities = capabilities,
-}
-lspconfig.gopls.setup {
+})
+lspconfig.gopls.setup({
   capabilities = capabilities,
-}
-lspconfig.html.setup {
+})
+lspconfig.html.setup({
   capabilities = capabilities,
-}
-lspconfig.lua_ls.setup {
+})
+lspconfig.lua_ls.setup({
   capabilities = capabilities,
   settings = {
     Lua = {
       diagnostics = {
-        globals = { "vim" }
-      }
-    }
-  }
-}
-lspconfig.pyright.setup {
+        globals = { "vim" },
+      },
+    },
+  },
+  on_attach = function(client, bufnr)
+    client.server_capabilities.document_formatting = false
+    client.server_capabilities.document_range_formatting = false
+  end,
+})
+lspconfig.pyright.setup({
   capabilities = capabilities,
-}
-lspconfig.rust_analyzer.setup {
+})
+lspconfig.rust_analyzer.setup({
   capabilities = capabilities,
-}
+})
 -- lspconfig.solargraph.setup {
 --   capabilities = capabilities,
 -- }
-lspconfig.sqlls.setup {
+lspconfig.sqlls.setup({
   capabilities = capabilities,
-}
-lspconfig.tsserver.setup {
+})
+lspconfig.tsserver.setup({
   capabilities = capabilities,
   settings = {
     preferences = {
-      importModuleSpecifierPreference = "non-relative"
+      importModuleSpecifierPreference = "non-relative",
     },
-  }
-}
-lspconfig.terraformls.setup {
+  },
+})
+lspconfig.terraformls.setup({
   capabilities = capabilities,
-}
+})
 
 -- https://github.com/neovim/nvim-lspconfig/issues/1792#issuecomment-1352782205
 vim.api.nvim_create_autocmd("BufWritePre", {
   buffer = buffer,
   callback = function()
-    vim.lsp.buf.format { async = false }
-  end
+    vim.lsp.buf.format({ async = false })
+  end,
 })

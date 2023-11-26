@@ -1,9 +1,9 @@
-require('nvim-treesitter.configs').setup {
+require("nvim-treesitter.configs").setup({
   ensure_installed = {
-    'lua',
-    'rust',
-    'tsx',
-    'typescript',
+    "lua",
+    "rust",
+    "tsx",
+    "typescript",
   },
   sync_install = true,
   auto_install = true,
@@ -13,4 +13,4 @@ require('nvim-treesitter.configs').setup {
   autotag = {
     enable = true,
   },
-}
+})
