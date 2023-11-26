@@ -18,5 +18,6 @@ sudo apt-add-repository --yes --update ppa:ansible/ansible
 sudo apt -y install ansible
 ansible-playbook -v ansible/setup.yml
 
-./deploy.sh
+git remote set-url origin git@github.com:gtnao0219/dotfiles.git
 
+./deploy.sh

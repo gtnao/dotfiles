@@ -1,0 +1,22 @@
+- name: Check if SSH key already exists
+  stat:
+    path: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+  register: ssh_key_stat
+- name: Generate SSH key
+  command: ssh-keygen -t rsa -b 2048 -f {{ ansible_env.HOME }}/.ssh/id_rsa -N ""
+  when: not ssh_key_stat.stat.exists
+- name: Set correct permissions for private key
+  file:
+    path: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+    mode: "0600"
+  when: not ssh_key_stat.stat.exists
+- name: Set correct permissions for public key
+  file:
+    path: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+    mode: "0644"
+  when: not ssh_key_stat.stat.exists
+- name: Inform user about SSH key registration
+  debug:
+    msg: >
+      Please check your SSH public key with 'cat ~/.ssh/id_rsa.pub' and
+      register it to your GitHub account if you haven't done so already.
