@@ -1,6 +1,8 @@
 local bufferline = require("bufferline")
 bufferline.setup({
 	options = {
+		numbers = "ordinal",
+		truncate_names = false,
 		diagnostics = "nvim_lsp",
 		diagnostics_indicator = function(_, _, diagnostics_dict, _)
 			local s = " "
@@ -10,22 +12,28 @@ bufferline.setup({
 			end
 			return s
 		end,
-		numbers = "ordinal",
 		offsets = {
 			{
 				filetype = "NvimTree",
-				separator = true,
 				text = "File Explorer",
 				text_align = "center",
+				separator = true,
 			},
 		},
 		separator_style = "slant",
-		truncate_names = false,
 	},
 })
-vim.keymap.set("n", "<C-b>b", "<Cmd>BufferLinePick<CR>")
 vim.keymap.set("n", "<C-b>l", "<Cmd>BufferLineCycleNext<CR>")
 vim.keymap.set("n", "<C-b>h", "<Cmd>BufferLineCyclePrev<CR>")
+vim.keymap.set("n", "<C-b>d", function()
+	local current_buf = vim.api.nvim_get_current_buf()
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if buf ~= current_buf and vim.api.nvim_buf_is_loaded(buf) then
+			vim.api.nvim_buf_delete(buf, { force = false })
+		end
+	end
+end)
+vim.keymap.set("n", "<C-b>b", "<Cmd>BufferLinePick<CR>")
 vim.keymap.set("n", "<C-b>1", function()
 	bufferline.go_to_buffer(1, true)
 end)
@@ -50,6 +58,6 @@ end)
 vim.keymap.set("n", "<C-b>8", function()
 	bufferline.go_to_buffer(8, true)
 end)
-vim.keymap.set("n", "<C-b>8", function()
+vim.keymap.set("n", "<C-b>9", function()
 	bufferline.go_to_buffer(9, true)
 end)
