@@ -1,3 +1,5 @@
+local diagnostic_icons = require("modules.font").diagnostic_icons
+
 local bufferline = require("bufferline")
 bufferline.setup({
 	options = {
@@ -7,7 +9,8 @@ bufferline.setup({
 		diagnostics_indicator = function(_, _, diagnostics_dict, _)
 			local s = " "
 			for e, n in pairs(diagnostics_dict) do
-				local sym = e == "error" and " " or (e == "warning" and " " or "")
+				local sym = e == "error" and diagnostic_icons.error
+					or (e == "warning" and diagnostic_icons.warn or diagnostic_icons.info)
 				s = s .. sym .. "(" .. n .. ")"
 			end
 			return s
