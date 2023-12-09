@@ -38,6 +38,9 @@ require("mason-lspconfig").setup({
 local lspconfig = require("lspconfig")
 
 -- sign_define is overwritten by unknown plugin, so we need to set it when vim enters
+vim.diagnostic.config({
+	virtual_text = false,
+})
 vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		local signs = {
