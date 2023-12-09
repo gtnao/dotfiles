@@ -11,3 +11,4 @@ vim.opt.showmatch = true
 vim.opt.matchtime = 1
 vim.opt.number = true
 vim.opt.termguicolors = true
+vim.opt.clipboard:append("unnamedplus")
