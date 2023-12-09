@@ -141,3 +141,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		vim.lsp.buf.format({ async = false })
 	end,
 })
+
+local function detach_lsp_from_current_buf()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local clients = vim.lsp.buf_get_clients(bufnr)
+	for _, client in pairs(clients) do
+		vim.lsp.buf_detach_client(bufnr, client.id)
+	end
+end
+vim.api.nvim_create_user_command("LSPDetach", detach_lsp_from_current_buf, {})
