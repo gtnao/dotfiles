@@ -1,5 +1,3 @@
-local diagnostic_icons = require("modules.font").diagnostic_icons
-
 vim.api.nvim_set_var("loaded_netrw", 1)
 vim.api.nvim_set_var("loaded_netrwPlugin", 1)
 require("nvim-tree").setup({
@@ -16,17 +14,11 @@ require("nvim-tree").setup({
 	},
 	diagnostics = {
 		enable = true,
-		icons = {
-			hint = diagnostic_icons.hint,
-			info = diagnostic_icons.info,
-			warning = diagnostic_icons.warn,
-			error = diagnostic_icons.error,
-		},
 	},
 	filters = {
 		git_ignored = false,
 		custom = {
-			"^\\.git",
+			"^\\.git$",
 		},
 	},
 })
