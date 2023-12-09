@@ -1,3 +1,5 @@
+local diagnostic_icons = require("modules.font").diagnostic_icons
+
 require("mason").setup()
 require("mason-null-ls").setup({
 	ensure_installed = {
@@ -26,10 +28,31 @@ require("mason-lspconfig").setup({
 		"terraformls",
 		"tsserver",
 	},
-	automatic_installation = true,
+	automatic_installation = {
+		exclude = {
+			"gopls",
+			"solargraph",
+		},
+	},
+})
+local lspconfig = require("lspconfig")
+
+-- sign_define is overwritten by unknown plugin, so we need to set it when vim enters
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		local signs = {
+			Error = diagnostic_icons.error,
+			Warn = diagnostic_icons.warn,
+			Info = diagnostic_icons.info,
+			Hint = diagnostic_icons.hint,
+		}
+		for type, icon in pairs(signs) do
+			local hl = "DiagnosticSign" .. type
+			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+		end
+	end,
 })
 
-local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 lspconfig.bashls.setup({
 	capabilities = capabilities,
@@ -73,9 +96,9 @@ lspconfig.pyright.setup({
 lspconfig.rust_analyzer.setup({
 	capabilities = capabilities,
 })
--- lspconfig.solargraph.setup({
--- 	capabilities = capabilities,
--- })
+lspconfig.solargraph.setup({
+	capabilities = capabilities,
+})
 lspconfig.sqlls.setup({
 	capabilities = capabilities,
 })

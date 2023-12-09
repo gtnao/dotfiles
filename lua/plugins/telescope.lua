@@ -1,7 +1,7 @@
 local telescope = require("telescope")
-
 local actions = require("telescope.actions")
 local lga_actions = require("telescope-live-grep-args.actions")
+local builtin = require("telescope.builtin")
 telescope.setup({
 	defaults = {
 		mappings = {
@@ -29,13 +29,8 @@ telescope.setup({
 		},
 	},
 })
-
 telescope.load_extension("fzf")
-
-local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files)
-vim.keymap.set("n", "<leader>fg", telescope.extensions.live_grep_args.live_grep_args)
-vim.keymap.set("n", "<leader>fb", builtin.buffers)
-vim.keymap.set("n", "<leader>fh", builtin.help_tags)
-vim.keymap.set("n", "<leader>fd", builtin.diagnostics)
 vim.keymap.set("n", "<leader>fr", builtin.oldfiles)
+vim.keymap.set("n", "<leader>fg", telescope.extensions.live_grep_args.live_grep_args)
+vim.keymap.set("n", "<leader>fd", builtin.diagnostics)
