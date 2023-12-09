@@ -53,7 +53,7 @@ return require("packer").startup(function(use)
 	use("williamboman/mason-lspconfig.nvim")
 	use("jayp0521/mason-null-ls.nvim")
 	use({
-		"tami5/lspsaga.nvim",
+		"nvimdev/lspsaga.nvim",
 		config = function()
 			require("plugins.lspsaga")
 		end,
