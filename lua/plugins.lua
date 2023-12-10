@@ -25,7 +25,12 @@ return require("packer").startup(function(use)
 	use("nvim-lua/plenary.nvim")
 	use("nvim-lua/popup.nvim")
 	use("kkharji/sqlite.lua")
-	use("rcarriga/nvim-notify")
+	use({
+		"rcarriga/nvim-notify",
+		config = function()
+			vim.notify = require("notify")
+		end,
+	})
 
 	-- lsp
 	use({
@@ -260,6 +265,70 @@ return require("packer").startup(function(use)
 		"lewis6991/gitsigns.nvim",
 		config = function()
 			require("gitsigns").setup()
+		end,
+	})
+
+	use("farmergreg/vim-lastplace")
+
+	use({
+		"thinca/vim-quickrun",
+		requires = { "lambdalisue/vim-quickrun-neovim-job" },
+		config = function()
+			local jobs = {}
+			vim.g.quickrun_config = {
+				["_"] = {
+					runner = "neovim_job",
+					hooks = {
+						{
+							on_ready = function(session, _)
+								local job_id = nil
+								if session._temp_names then
+									job_id = session._temp_names[1]
+									jobs[job_id] = { finish = false }
+								end
+								vim.notify("[QuickRun] Running " .. session.config.command, "warn", {
+									title = " QuickRun",
+									keep = function()
+										if job_id then
+											return not jobs[job_id].finish
+										else
+											return true
+										end
+									end,
+								})
+							end,
+							on_success = function(session, _)
+								vim.notify(
+									"[QuickRun] Success " .. session.config.command,
+									"info",
+									{ title = " QuickRun" }
+								)
+							end,
+							on_failure = function(session, _)
+								vim.notify(
+									"[QuickRun] Error " .. session.config.command,
+									"error",
+									{ title = " QuickRun" }
+								)
+							end,
+							on_finish = function(session, _)
+								if session._temp_names then
+									local job_id = session._temp_names[1]
+									jobs[job_id].finish = true
+								end
+							end,
+						},
+					},
+				},
+				["tsc"] = {
+					command = "tsc",
+					exec = {
+						"yarn run --silent %C --project . --noEmit --skipLibCheck --incremental --tsBuildInfoFile .git/.tsbuildinfo 2>/dev/null",
+					},
+					outputter = "quickfix",
+					["outputter/quickfix/errorformat"] = "%f(%l\\,%c)%m",
+				},
+			}
 		end,
 	})
 
