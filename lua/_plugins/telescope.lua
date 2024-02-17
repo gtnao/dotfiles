@@ -23,7 +23,6 @@ telescope.setup({
 			mappings = {
 				i = {
 					["<C-k>"] = lga_actions.quote_prompt(),
-					["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
 				},
 			},
 		},
@@ -34,3 +33,4 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files)
 vim.keymap.set("n", "<leader>fr", builtin.oldfiles)
 vim.keymap.set("n", "<leader>fg", telescope.extensions.live_grep_args.live_grep_args)
 vim.keymap.set("n", "<leader>fd", builtin.diagnostics)
+vim.keymap.set("n", "<leader>gs", builtin.git_status)
