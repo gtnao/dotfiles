@@ -3,12 +3,6 @@ local diagnostic_icons = require("modules.font").diagnostic_icons
 return {
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
-			"hrsh7th/cmp-nvim-lsp",
-		},
-		event = { "BufRead", "BufNewfile" },
 		init = function()
 			vim.diagnostic.config({
 				virtual_text = false,
@@ -25,74 +19,7 @@ return {
 			end
 		end,
 		config = function()
-			local lspconfig = require("lspconfig")
-			local null_ls = require("null-ls")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			lspconfig.bashls.setup({ capabilities = capabilities })
-			lspconfig.jdtls.setup({
-				capabilities = capabilities,
-				on_attach = function(client, _)
-					client.server_capabilities.documentFormattingProvider = false
-					client.server_capabilities.documentRangeFormattingProvider = false
-				end,
-				cmd = {
-					"jdtls",
-				},
-			})
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "vim" },
-						},
-					},
-				},
-				on_attach = function(client, _)
-					client.server_capabilities.documentFormattingProvider = false
-					client.server_capabilities.documentRangeFormattingProvider = false
-				end,
-			})
-			lspconfig.rust_analyzer.setup({
-				capabilities = capabilities,
-				settings = {
-					["rust-analyzer"] = {
-						checkOnSave = {
-							command = "clippy",
-						},
-					},
-				},
-			})
-			lspconfig.solargraph.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.terraformls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.tsserver.setup({
-				capabilities = capabilities,
-				on_attach = function(client, _)
-					client.server_capabilities.documentFormattingProvider = false
-					client.server_capabilities.documentRangeFormattingProvider = false
-				end,
-			})
-			null_ls.setup({
-				sources = {
-					null_ls.builtins.formatting.prettier,
-					null_ls.builtins.code_actions.shellcheck,
-					null_ls.builtins.formatting.shfmt,
-					null_ls.builtins.formatting.stylua,
-				},
-			})
-
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = vim.api.nvim_create_augroup("FormatOnSave", {}),
-				callback = function()
-					vim.lsp.buf.format({ async = false })
-				end,
-			})
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 				callback = function(ev)
 					local opts = { buffer = ev.buf }
 					vim.keymap.set("n", "df", vim.lsp.buf.definition, opts)
@@ -102,13 +29,24 @@ return {
 	},
 	{
 		"williamboman/mason.nvim",
-		dependencies = {
-			{ "williamboman/mason-lspconfig" },
-			{ "jayp0521/mason-null-ls.nvim" },
-		},
 		config = function()
 			require("mason").setup()
-			require("mason-lspconfig").setup({
+		end,
+	},
+	{
+		"williamboman/mason-lspconfig",
+		dependencies = {
+			{ "williamboman/mason.nvim" },
+			{ "neovim/nvim-lspconfig" },
+			{ "hrsh7th/cmp-nvim-lsp" },
+		},
+		event = { "BufRead", "BufNewfile" },
+		config = function()
+			local lspconfig = require("lspconfig")
+			local mason_lspconfig = require("mason-lspconfig")
+			local default_capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+			mason_lspconfig.setup({
 				ensure_installed = {
 					"bashls",
 					"jdtls",
@@ -120,6 +58,63 @@ return {
 				},
 				automatic_installation = true,
 			})
+
+			local opts = {
+				capabilities = default_capabilities,
+				on_attach = function(client, bufnr)
+					if client.name == "tsserver" or client.name == "lua_ls" then
+						client.server_capabilities.documentFormattingProvider = false
+						client.server_capabilities.documentRangeFormattingProvider = false
+					else
+						if client.supports_method("textDocument/formatting") then
+							vim.api.nvim_create_autocmd("BufWritePre", {
+								buffer = bufnr,
+								callback = function()
+									vim.lsp.buf.format({ async = false })
+								end,
+							})
+						end
+					end
+				end,
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+					},
+					["rust-analyzer"] = {
+						checkOnSave = {
+							command = "clippy",
+						},
+					},
+				},
+			}
+
+			mason_lspconfig.setup_handlers({
+				function(server_name)
+					lspconfig[server_name].setup(opts)
+				end,
+				["jdtls"] = function()
+					lspconfig.jdtls.setup({
+						capabilities = default_capabilities,
+						on_attach = function(client, _)
+							client.server_capabilities.documentFormattingProvider = false
+							client.server_capabilities.documentRangeFormattingProvider = false
+						end,
+						cmd = { "jdtls" },
+					})
+				end,
+			})
+		end,
+	},
+	{
+		"jayp0521/mason-null-ls.nvim",
+		dependencies = {
+			{ "williamboman/mason.nvim" },
+			{ "jose-elias-alvarez/null-ls.nvim" },
+		},
+		event = { "BufRead", "BufNewfile" },
+		config = function()
 			require("mason-null-ls").setup({
 				ensure_installed = {
 					"prettier",
@@ -128,6 +123,26 @@ return {
 					"stylua",
 				},
 				automatic_installation = true,
+			})
+
+			local null_ls = require("null-ls")
+			null_ls.setup({
+				sources = {
+					null_ls.builtins.formatting.prettier,
+					null_ls.builtins.code_actions.shellcheck,
+					null_ls.builtins.formatting.shfmt,
+					null_ls.builtins.formatting.stylua,
+				},
+				on_attach = function(client, bufnr)
+					if client.supports_method("textDocument/formatting") then
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							buffer = bufnr,
+							callback = function()
+								vim.lsp.buf.format({ async = false })
+							end,
+						})
+					end
+				end,
 			})
 		end,
 	},
