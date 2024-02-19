@@ -1,3 +1,5 @@
+local diagnostic_icons = require("modules.font").diagnostic_icons
+
 return {
 	{
 		"neovim/nvim-lspconfig",
@@ -7,6 +9,21 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 		},
 		event = { "BufRead", "BufNewfile" },
+		init = function()
+			vim.diagnostic.config({
+				virtual_text = false,
+			})
+			local signs = {
+				Error = diagnostic_icons.error,
+				Warn = diagnostic_icons.warn,
+				Info = diagnostic_icons.info,
+				Hint = diagnostic_icons.hint,
+			}
+			for type, icon in pairs(signs) do
+				local hl = "DiagnosticSign" .. type
+				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+			end
+		end,
 		config = function()
 			local lspconfig = require("lspconfig")
 			local null_ls = require("null-ls")
@@ -69,10 +86,16 @@ return {
 			})
 
 			vim.api.nvim_create_autocmd("BufWritePre", {
-				-- TODO:
-				buffer = buffer,
+				group = vim.api.nvim_create_augroup("FormatOnSave", {}),
 				callback = function()
 					vim.lsp.buf.format({ async = false })
+				end,
+			})
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+				callback = function(ev)
+					local opts = { buffer = ev.buf }
+					vim.keymap.set("n", "df", vim.lsp.buf.definition, opts)
 				end,
 			})
 		end,
@@ -109,10 +132,57 @@ return {
 		end,
 	},
 	{
+		"nvimdev/lspsaga.nvim",
+		event = { "LspAttach" },
+		config = function()
+			require("lspsaga").setup({
+				lightbulb = {
+					enable = false,
+				},
+				beacon = {
+					enable = false,
+				},
+				symbol_in_winbar = {
+					enable = false,
+				},
+			})
+			vim.keymap.set("n", "K", "<Cmd>Lspsaga hover_doc<CR>")
+			vim.keymap.set("n", "<Leader>ca", "<Cmd>Lspsaga code_action<CR>")
+			vim.keymap.set("n", "<Leader>rn", "<Cmd>Lspsaga rename<CR>")
+			vim.keymap.set("n", "<Leader>dn", "<Cmd>Lspsaga diagnostic_jump_next<CR>")
+			vim.keymap.set("n", "<Leader>dp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>")
+		end,
+	},
+	{
 		"j-hui/fidget.nvim",
 		event = { "LspAttach" },
 		config = function()
 			require("fidget").setup()
+		end,
+	},
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		cmd = { "TroubleToggle" },
+		init = function()
+			vim.keymap.set("n", "<leader>t", "<Cmd>TroubleToggle<CR>")
+		end,
+		config = function()
+			require("trouble").setup()
+		end,
+	},
+	{
+		"stevearc/aerial.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		cmd = { "AerialToggle" },
+		init = function()
+			vim.keymap.set("n", "<leader>a", "<Cmd>AerialToggle<CR>")
+		end,
+		config = function()
+			require("aerial").setup()
 		end,
 	},
 }

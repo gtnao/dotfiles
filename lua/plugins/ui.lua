@@ -67,4 +67,12 @@ return {
 			vim.g.highlightedyank_highlight_duration = 300
 		end,
 	},
+	{
+		"mvllow/modes.nvim",
+		tag = "v0.2.0",
+		event = { "BufRead", "BufNewfile" },
+		config = function()
+			require("modes").setup()
+		end,
+	},
 }

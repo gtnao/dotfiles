@@ -1,7 +1,14 @@
 return {
 	{
-		"farmergreg/vim-lastplace",
-		event = "BufRead",
+		"haya14busa/vim-edgemotion",
+		keys = {
+			{ "<Leader>j", mode = { "n", "x" } },
+			{ "<Leader>k", mode = { "n", "x" } },
+		},
+		config = function()
+			vim.keymap.set({ "n", "x" }, "<Leader>j", "<Plug>(edgemotion-j)")
+			vim.keymap.set({ "n", "x" }, "<Leader>k", "<Plug>(edgemotion-k)")
+		end,
 	},
 	{
 		"kevinhwang91/nvim-hlslens",
