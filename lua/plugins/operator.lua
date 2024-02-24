@@ -26,4 +26,22 @@ return {
 			vim.keymap.set({ "n", "x" }, "_", substitute.operator)
 		end,
 	},
+	{
+		"machakann/vim-sandwich",
+		event = { "ModeChanged" },
+		config = function()
+			local sandwich_recipes = vim.fn.deepcopy(vim.g["sandwich#default_recipes"])
+			table.insert(sandwich_recipes, {
+				buns = { "${", "}" },
+				input = { "$" },
+				filetype = { "typescript", "typescriptreact" },
+			})
+			table.insert(sandwich_recipes, {
+				buns = { "#{", "}" },
+				input = { "#" },
+				filetype = { "ruby" },
+			})
+			vim.g["sandwich#recipes"] = sandwich_recipes
+		end,
+	},
 }

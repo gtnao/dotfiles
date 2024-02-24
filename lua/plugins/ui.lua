@@ -1,15 +1,52 @@
+local enable_quick_quit = require("modules.utils").enable_quick_quit
+
 return {
 	{
-		"rcarriga/nvim-notify",
-		lazy = false,
+		"goolord/alpha-nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = { "VimEnter" },
+		-- init = function()
+		-- 	vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+		-- 		pattern = { "*" },
+		-- 		callback = function()
+		-- 			vim.api.nvim_set_hl(0, "StartifySection", { fg = "white", bg = "black" })
+		-- 		end,
+		-- 	})
+		-- end,
 		config = function()
-			vim.notify = require("notify")
+			local startify = require("alpha.themes.startify")
+			startify.section.header.val = {
+				[[                                                                       ]],
+				[[  ██████   █████                   █████   █████  ███                  ]],
+				[[ ░░██████ ░░███                   ░░███   ░░███  ░░░                   ]],
+				[[  ░███░███ ░███   ██████   ██████  ░███    ░███  ████  █████████████   ]],
+				[[  ░███░░███░███  ███░░███ ███░░███ ░███    ░███ ░░███ ░░███░░███░░███  ]],
+				[[  ░███ ░░██████ ░███████ ░███ ░███ ░░███   ███   ░███  ░███ ░███ ░███  ]],
+				[[  ░███  ░░█████ ░███░░░  ░███ ░███  ░░░█████░    ░███  ░███ ░███ ░███  ]],
+				[[  █████  ░░█████░░██████ ░░██████     ░░███      █████ █████░███ █████ ]],
+				[[ ░░░░░    ░░░░░  ░░░░░░   ░░░░░░       ░░░      ░░░░░ ░░░░░ ░░░ ░░░░░  ]],
+				[[                                                                       ]],
+			}
+			require("alpha").setup(startify.config)
 		end,
+	},
+	{
+		"rcarriga/nvim-notify",
+		event = { "VeryLazy" },
+		config = function()
+			require("notify").setup()
+			vim.notify = require("notify")
+			enable_quick_quit("notify")
+		end,
+	},
+	{
+		"stevearc/dressing.nvim",
+		event = { "VeryLazy" },
 	},
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		lazy = false,
+		event = { "VimEnter" },
 		config = function()
 			require("lualine").setup()
 		end,
@@ -18,11 +55,21 @@ return {
 		"akinsho/bufferline.nvim",
 		version = "*",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		event = { "BufRead", "BufNewfile" },
+		event = { "VimEnter" },
 		config = function()
 			require("bufferline").setup()
 			vim.keymap.set("n", "<C-b>l", "<Cmd>BufferLineCycleNext<CR>")
 			vim.keymap.set("n", "<C-b>h", "<Cmd>BufferLineCyclePrev<CR>")
+		end,
+	},
+	{
+		"GustavoKatel/sidebar.nvim",
+		cmd = { "SidebarNvimToggle" },
+		init = function()
+			vim.keymap.set("n", "<leader>ss", "<Cmd>SidebarNvimToggle<CR>")
+		end,
+		config = function()
+			require("sidebar-nvim").setup()
 		end,
 	},
 	{
@@ -43,6 +90,14 @@ return {
 			require("tint").setup({
 				tint = -60,
 			})
+		end,
+	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		event = { "BufRead", "BufNewfile" },
+		config = function()
+			require("ibl").setup()
 		end,
 	},
 	{
@@ -74,5 +129,22 @@ return {
 		config = function()
 			require("modes").setup()
 		end,
+	},
+	{
+		"nvim-zh/colorful-winsep.nvim",
+		config = true,
+		event = { "WinNew" },
+	},
+	{
+		"vuki656/package-info.nvim",
+		dependencies = { "MunifTanjim/nui.nvim" },
+		ft = { "json" },
+		config = function()
+			require("package-info").setup()
+		end,
+	},
+	{
+		"MTDL9/vim-log-highlighting",
+		ft = { "log" },
 	},
 }

@@ -1,0 +1,12 @@
+{
+  "frozen_string_literal": {
+    "prefix": ["frozen"],
+    "body": ["# frozen_string_literal: true"],
+    "description": "frozen string literal"
+  },
+  "add_column": {
+    "prefix": ["add_column"],
+    "body": ["add_column :${1:table_name}, :${2:column_name}, :${3:data_type}"],
+    "description": "add column"
+  }
+}

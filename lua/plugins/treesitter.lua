@@ -4,6 +4,7 @@ return {
 		dependencies = {
 			{ "nvim-treesitter/playground" },
 			{ "yioneko/nvim-yati" },
+			{ "andymass/vim-matchup" },
 			{
 				"windwp/nvim-ts-autotag",
 				ft = { "typescriptreact" },
@@ -25,7 +26,7 @@ return {
 					})
 				end,
 			},
-			{ "nvim-treesitter/nvim-treesitter-context" },
+			-- { "nvim-treesitter/nvim-treesitter-context" },
 			{ "nvim-treesitter/nvim-treesitter-textobjects" },
 			{ "m-demare/hlargs.nvim" },
 		},
@@ -63,6 +64,9 @@ return {
 				indent = {
 					enable = false,
 				},
+				matchup = {
+					enable = true,
+				},
 				textobjects = {
 					select = {
 						enable = true,
@@ -75,5 +79,24 @@ return {
 			})
 			require("hlargs").setup()
 		end,
+	},
+	{
+		"bennypowers/nvim-regexplainer",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"MunifTanjim/nui.nvim",
+		},
+		event = { "BufRead", "BufNewfile" },
+		config = function()
+			require("regexplainer").setup({
+				auto = true,
+			})
+		end,
+	},
+	{
+		"danymat/neogen",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		cmd = "Neogen",
+		config = true,
 	},
 }

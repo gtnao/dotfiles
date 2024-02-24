@@ -49,6 +49,7 @@ return {
 			mason_lspconfig.setup({
 				ensure_installed = {
 					"bashls",
+					"eslint",
 					"jdtls",
 					"lua_ls",
 					"rust_analyzer",
@@ -62,9 +63,14 @@ return {
 			local opts = {
 				capabilities = default_capabilities,
 				on_attach = function(client, bufnr)
-					if client.name == "tsserver" or client.name == "lua_ls" then
+					if client.name == "lua_ls" then
 						client.server_capabilities.documentFormattingProvider = false
 						client.server_capabilities.documentRangeFormattingProvider = false
+					elseif client.name == "eslint" then
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							buffer = bufnr,
+							command = "EslintFixAll",
+						})
 					else
 						if client.supports_method("textDocument/formatting") then
 							vim.api.nvim_create_autocmd("BufWritePre", {
@@ -102,6 +108,20 @@ return {
 							client.server_capabilities.documentRangeFormattingProvider = false
 						end,
 						cmd = { "jdtls" },
+					})
+				end,
+				["tsserver"] = function()
+					lspconfig.tsserver.setup({
+						capabilities = default_capabilities,
+						init_options = {
+							preferences = {
+								importModuleSpecifierPreference = "non-relative",
+							},
+						},
+						on_attach = function(client, _)
+							client.server_capabilities.documentFormattingProvider = false
+							client.server_capabilities.documentRangeFormattingProvider = false
+						end,
 					})
 				end,
 			})
@@ -162,6 +182,7 @@ return {
 				},
 			})
 			vim.keymap.set("n", "K", "<Cmd>Lspsaga hover_doc<CR>")
+			vim.keymap.set("n", "<Leader>rf", "<Cmd>Lspsaga finder<CR>")
 			vim.keymap.set("n", "<Leader>ca", "<Cmd>Lspsaga code_action<CR>")
 			vim.keymap.set("n", "<Leader>rn", "<Cmd>Lspsaga rename<CR>")
 			vim.keymap.set("n", "<Leader>dn", "<Cmd>Lspsaga diagnostic_jump_next<CR>")
@@ -175,6 +196,7 @@ return {
 			require("fidget").setup()
 		end,
 	},
+	{ "folke/neodev.nvim" },
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
