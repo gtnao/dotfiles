@@ -12,9 +12,11 @@ sudo apt -y upgrade
 # download dotfiles repository
 sudo apt -y install git
 mkdir -p "${DOTFILES_PARENT_DIR}"
-git clone https://github.com/gtnao0219/dotfiles.git "${DOTFILES_DIR}"
+if [ ! -d "${DOTFILES_DIR}" ]; then
+	git clone https://github.com/gtnao0219/dotfiles.git "${DOTFILES_DIR}"
+	git remote set-url origin git@github.com:gtnao0219/dotfiles.git
+fi
 cd "${DOTFILES_DIR}"
-git remote set-url origin git@github.com:gtnao0219/dotfiles.git
 
 # install core packages
 sudo apt -y install build-essential unzip
