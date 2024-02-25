@@ -11,6 +11,10 @@ go: ## Install go
 	wget https://go.dev/dl/go1.22.0.linux-amd64.tar.gz
 	sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.22.0.linux-amd64.tar.gz
 
+go_tools: ## Install ghq, peco
+	go install github.com/x-motemen/ghq@latest
+	sudo apt -y install peco
+
 ruby: ## Install ruby
 	sudo apt -y install autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
 	asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git

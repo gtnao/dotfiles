@@ -34,20 +34,39 @@ HISTSIZE=10000
 SAVEHIST=100000
 HISTORY_IGNORE="(ls|cd|pwd|zsh|exit|cd ..)"
 
+# +----------------------------------------------------------+
+# | Keybinds                                                 |
+# +----------------------------------------------------------+
 bindkey -e
+
+_peco-src() {
+  local selected_dir=$(ghq list -p | peco --query "${LBUFFER}")
+  if [ -n "${selected_dir}" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N _peco-src
+bindkey '^]' _peco-src
 
 # +----------------------------------------------------------+
 # | Options                                                  |
 # +----------------------------------------------------------+
+setopt APPEND_HISTORY
 setopt AUTO_CD
 setopt EXTENDED_GLOB
+setopt HIST_IGNORE_ALL_DUPS 
+setopt HIST_IGNORE_SPACE 
+setopt HIST_NO_STORE 
+setopt HIST_REDUCE_BLANKS 
 setopt SHARE_HISTORY 
 
 # +----------------------------------------------------------+
 # | Autoload                                                 |
 # +----------------------------------------------------------+
 autoload -Uz colors && colors
-# autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit
 
 # +----------------------------------------------------------+
 # | Alias                                                    |

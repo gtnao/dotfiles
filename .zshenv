@@ -24,3 +24,10 @@ if [[ -f "${HOME}/.cargo/env" ]]; then
   . "${HOME}/.cargo/env"
 fi
 
+# ++ Golang +----------------------------------------------------------+
+export GOPATH="${HOME}/dev"
+if [[ -d "${GOPATH}/bin" ]]; then
+  path+=("${GOPATH}/bin")
+fi
+
+export GPG_TTY=$(tty)
