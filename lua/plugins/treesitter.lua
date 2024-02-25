@@ -76,6 +76,13 @@ return {
 						},
 					},
 				},
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						node_incremental = "f<CR>",
+						node_decremental = "g<CR>",
+					},
+				},
 			})
 			require("hlargs").setup()
 			vim.keymap.set({ "x" }, "iu", ':lua require"treesitter-unit".select()<CR>', { noremap = true })

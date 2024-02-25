@@ -14,6 +14,7 @@ return {
 	{
 		"folke/which-key.nvim",
 		cmd = "WhichKey",
+		enabled = false,
 		init = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
