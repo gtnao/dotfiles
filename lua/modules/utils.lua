@@ -10,17 +10,15 @@ M.enable_quick_quit = function(pattern)
 end
 
 M.is_ruby_installed = function()
-	local ok, _ = pcall(function()
-		vim.fn.system("ruby -v")
-	end)
-	return ok
+	vim.fn.system("ruby -v")
+	local shell_error = vim.v.shell_error
+	return shell_error == 0
 end
 
 M.is_go_installed = function()
-	local ok, _ = pcall(function()
-		vim.fn.system("go version")
-	end)
-	return ok
+	vim.fn.system("go version")
+	local shell_error = vim.v.shell_error
+	return shell_error == 0
 end
 
 return M
