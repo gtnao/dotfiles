@@ -11,3 +11,4 @@ ln -sfn "$(pwd)/init.lua" ~/.config/nvim/init.lua
 ln -sfn "$(pwd)/lua" ~/.config/nvim/lua
 ln -sfn "$(pwd)/luasnip" ~/.config/nvim/luasnip
 ln -sfn "$(pwd)/.tool-versions" ~/.tool-versions
+ln -sfn "$(pwd)/starship.toml" ~/.config/starship.toml
