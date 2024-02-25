@@ -34,4 +34,15 @@ return {
 			})
 		end,
 	},
+	{
+		"LudoPinelli/comment-box.nvim",
+		event = { "BufRead", "BufNewFile" },
+		init = function()
+			vim.keymap.set("n", "<Leader>cbb", "<Cmd>CBllbox10<CR>")
+			vim.keymap.set("n", "<Leader>cbl", "<Cmd>CBllline17<CR>")
+		end,
+		config = function()
+			require("comment-box").setup()
+		end,
+	},
 }
