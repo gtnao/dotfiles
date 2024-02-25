@@ -28,7 +28,7 @@ sudo mv nvim.appimage /usr/bin/nvim
 
 # install zsh
 sudo apt -y install zsh
-sudo chsh -s "$(which zsh)"
+sudo chsh "$USER" -s "$(which zsh)"
 echo "zsh is now installed and set as the default shell. Please logout and log back in to apply the changes."
 
 # install tmux
