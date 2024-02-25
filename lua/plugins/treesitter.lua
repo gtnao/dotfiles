@@ -26,8 +26,8 @@ return {
 					})
 				end,
 			},
-			-- { "nvim-treesitter/nvim-treesitter-context" },
 			{ "nvim-treesitter/nvim-treesitter-textobjects" },
+			{ "David-Kunz/treesitter-unit" },
 			{ "m-demare/hlargs.nvim" },
 		},
 		event = { "BufRead", "BufNewfile" },
@@ -78,6 +78,8 @@ return {
 				},
 			})
 			require("hlargs").setup()
+			vim.keymap.set({ "x" }, "iu", ':lua require"treesitter-unit".select()<CR>', { noremap = true })
+			vim.keymap.set({ "x" }, "au", ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
 		end,
 	},
 	{

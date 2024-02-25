@@ -1,18 +1,11 @@
 local enable_quick_quit = require("modules.utils").enable_quick_quit
+local diagnostic_icons = require("modules.font").diagnostic_icons
 
 return {
 	{
 		"goolord/alpha-nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		event = { "VimEnter" },
-		-- init = function()
-		-- 	vim.api.nvim_create_autocmd({ "ColorScheme" }, {
-		-- 		pattern = { "*" },
-		-- 		callback = function()
-		-- 			vim.api.nvim_set_hl(0, "StartifySection", { fg = "white", bg = "black" })
-		-- 		end,
-		-- 	})
-		-- end,
 		config = function()
 			local startify = require("alpha.themes.startify")
 			startify.section.header.val = {
@@ -57,7 +50,31 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		event = { "VimEnter" },
 		config = function()
-			require("bufferline").setup()
+			require("bufferline").setup({
+				options = {
+					numbers = "ordinal",
+					truncate_names = false,
+					diagnostics = "nvim_lsp",
+					diagnostics_indicator = function(_, _, diagnostics_dict, _)
+						local s = " "
+						for e, n in pairs(diagnostics_dict) do
+							local sym = e == "error" and diagnostic_icons.error
+								or (e == "warning" and diagnostic_icons.warn or diagnostic_icons.info)
+							s = s .. sym .. "(" .. n .. ")"
+						end
+						return s
+					end,
+					offsets = {
+						{
+							filetype = "NvimTree",
+							text = "FileExplorer",
+							text_align = "center",
+							separator = true,
+						},
+					},
+					separator_style = "slant",
+				},
+			})
 			vim.keymap.set("n", "<C-b>l", "<Cmd>BufferLineCycleNext<CR>")
 			vim.keymap.set("n", "<C-b>h", "<Cmd>BufferLineCyclePrev<CR>")
 		end,

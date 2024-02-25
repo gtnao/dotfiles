@@ -4,7 +4,7 @@ vim.keymap.set({ "n", "x" }, "<Leader>", "<Nop>")
 vim.keymap.set({ "n", "x" }, ";", ":")
 vim.keymap.set({ "n", "x" }, ":", ";")
 
-vim.keymap.set("n", "<Leader>w", [[<Cmd>update<CR>]])
+vim.keymap.set("n", "<Leader>w", [[<Cmd>update<CR>]], { silent = true })
 vim.keymap.set("n", "<Leader>q", [[<Cmd>quit<CR>]])
 
 vim.keymap.set("n", "<Leader>h", "^")

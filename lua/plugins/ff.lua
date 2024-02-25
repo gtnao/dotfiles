@@ -10,7 +10,6 @@ return {
 				"nvim-telescope/telescope-live-grep-args.nvim",
 				version = "^1.0.0",
 			},
-			"nvim-telescope/telescope-frecency.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
 			"crispgm/telescope-heading.nvim",
 		},
@@ -28,8 +27,7 @@ return {
 		config = function()
 			local telescope = require("telescope")
 			telescope.load_extension("fzf")
-			telescope.load_extension("live_grep_args")
-			telescope.load_extension("frecency")
+			-- telescope.load_extension("live_grep_args")
 			telescope.load_extension("ui-select")
 			telescope.load_extension("heading")
 			local actions = require("telescope.actions")

@@ -17,6 +17,15 @@ return {
 				local hl = "DiagnosticSign" .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 			end
+
+			local function detach_lsp_from_current_buf()
+				local bufnr = vim.api.nvim_get_current_buf()
+				local clients = vim.lsp.buf_get_clients(bufnr)
+				for _, client in pairs(clients) do
+					vim.lsp.buf_detach_client(bufnr, client.id)
+				end
+			end
+			vim.api.nvim_create_user_command("LSPDetach", detach_lsp_from_current_buf, {})
 		end,
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -49,9 +58,15 @@ return {
 			mason_lspconfig.setup({
 				ensure_installed = {
 					"bashls",
+					"cssls",
+					"clangd",
 					"eslint",
+					"gopls",
+					"html",
 					"jdtls",
 					"lua_ls",
+					"mdx_analyzer",
+					"pyright",
 					"rust_analyzer",
 					"solargraph",
 					"terraformls",
@@ -137,6 +152,7 @@ return {
 		config = function()
 			require("mason-null-ls").setup({
 				ensure_installed = {
+					"google_java_format",
 					"prettier",
 					"shellcheck",
 					"shfmt",
@@ -148,6 +164,7 @@ return {
 			local null_ls = require("null-ls")
 			null_ls.setup({
 				sources = {
+					null_ls.builtins.formatting.google_java_format.with({ extra_args = { "--aosp" } }),
 					null_ls.builtins.formatting.prettier,
 					null_ls.builtins.code_actions.shellcheck,
 					null_ls.builtins.formatting.shfmt,
@@ -171,6 +188,10 @@ return {
 		event = { "LspAttach" },
 		config = function()
 			require("lspsaga").setup({
+				scroll_preview = {
+					scroll_down = "<C-d>",
+					scroll_up = "<C-u>",
+				},
 				lightbulb = {
 					enable = false,
 				},
