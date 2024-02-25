@@ -1,4 +1,6 @@
 local diagnostic_icons = require("modules.font").diagnostic_icons
+local is_ruby_installed = require("modules.utils").is_ruby_installed
+local is_go_installed = require("modules.utils").is_go_installed
 
 return {
 	{
@@ -61,14 +63,14 @@ return {
 					"cssls",
 					"clangd",
 					"eslint",
-					"gopls",
+					is_go_installed() and "gopls" or nil,
 					"html",
 					"jdtls",
 					"lua_ls",
 					"mdx_analyzer",
 					"pyright",
 					"rust_analyzer",
-					"solargraph",
+					is_ruby_installed() and "solargraph" or nil,
 					"terraformls",
 					"tsserver",
 				},

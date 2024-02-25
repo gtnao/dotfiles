@@ -39,7 +39,7 @@ git clone https://github.com/asdf-vm/asdf.git "${HOME}/.asdf" --branch v0.14.0
 . "${HOME}/.asdf/asdf.sh"
 # install nodejs
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-sudo apt-get install python3 g++ make python3-pip
+sudo apt -y install python3 g++ make python3-pip
 asdf install nodejs 20.11.1
 asdf global nodejs 20.11.1
 
