@@ -32,7 +32,7 @@ zinit light starship/starship
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=100000
-HISTORY_IGNORE="(ls|cd|pwd|zsh|exit|cd ..)"
+HISTORY_IGNORE="(ls|cd|pwd|zsh|exit|cd ..|v|vi|vim|nvim|tig)"
 
 # +----------------------------------------------------------+
 # | Keybinds                                                 |
@@ -56,6 +56,7 @@ bindkey '^]' _peco-src
 setopt APPEND_HISTORY
 setopt AUTO_CD
 setopt EXTENDED_GLOB
+setopt EXTENDED_HISTORY 
 setopt HIST_IGNORE_ALL_DUPS 
 setopt HIST_IGNORE_SPACE 
 setopt HIST_NO_STORE 
@@ -63,10 +64,34 @@ setopt HIST_REDUCE_BLANKS
 setopt SHARE_HISTORY 
 
 # +----------------------------------------------------------+
+# | fpath                                                    |
+# +----------------------------------------------------------+
+# ++ asdf +------------------------------------------------------------+
+if [[ -d "${HOME}/.asdf/completions" ]]; then
+  fpath=("${HOME}/.asdf/completions" $fpath)
+fi
+
+# +----------------------------------------------------------+
 # | Autoload                                                 |
 # +----------------------------------------------------------+
+fpath=("${HOME}/.asdf/completions" $fpath)
 autoload -Uz colors && colors
+autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
+
+# +----------------------------------------------------------+
+# | Completion                                               |
+# +----------------------------------------------------------+
+# ++ aws +-------------------------------------------------------------+
+if [[ -e /usr/local/bin/aws_completer ]]; then
+  complete -C '/usr/local/bin/aws_completer' aws
+fi
+if which saml2aws >/dev/null 2>&1; then
+  eval "$(saml2aws --completion-script-zsh)"
+fi
+if which kubectl >/dev/null 2>&1; then
+  source <(kubectl completion zsh)
+fi
 
 # +----------------------------------------------------------+
 # | Alias                                                    |
@@ -75,12 +100,16 @@ alias ls="ls -alh --color=auto"
 alias cp="cp -irf"
 alias mv="mv -i"
 alias mkdir="mkdir -p"
+alias history="history -d"
 alias ..="cd .."
-if command -v nvim >/dev/null 2>&1; then
+if which nvim >/dev/null 2>&1; then
   export EDITOR=nvim
   alias vim="nvim"
   alias vi="nvim"
   alias v="nvim"
+fi
+if which kubectl >/dev/null 2>&1; then
+  alias k="kubectl"
 fi
 
 # +----------------------------------------------------------+
