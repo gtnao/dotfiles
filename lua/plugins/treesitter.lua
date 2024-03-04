@@ -85,23 +85,23 @@ return {
 				},
 			})
 			require("hlargs").setup()
-			vim.keymap.set({ "x" }, "iu", ':lua require"treesitter-unit".select()<CR>', { noremap = true })
-			vim.keymap.set({ "x" }, "au", ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
+			-- vim.keymap.set({ "n", "x" }, "iu", ':lua require"treesitter-unit".select()<CR>', { noremap = true })
+			-- vim.keymap.set({ "n", "x" }, "au", ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
 		end,
 	},
-	{
-		"bennypowers/nvim-regexplainer",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"MunifTanjim/nui.nvim",
-		},
-		event = { "BufRead", "BufNewfile" },
-		config = function()
-			require("regexplainer").setup({
-				auto = true,
-			})
-		end,
-	},
+	-- {
+	-- 	"bennypowers/nvim-regexplainer",
+	-- 	dependencies = {
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 		"MunifTanjim/nui.nvim",
+	-- 	},
+	-- 	event = { "BufRead", "BufNewfile" },
+	-- 	config = function()
+	-- 		require("regexplainer").setup({
+	-- 			auto = true,
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"danymat/neogen",
 		dependencies = "nvim-treesitter/nvim-treesitter",

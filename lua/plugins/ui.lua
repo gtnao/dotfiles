@@ -23,15 +23,15 @@ return {
 			require("alpha").setup(startify.config)
 		end,
 	},
-	{
-		"rcarriga/nvim-notify",
-		event = { "VeryLazy" },
-		config = function()
-			require("notify").setup()
-			vim.notify = require("notify")
-			enable_quick_quit("notify")
-		end,
-	},
+	-- {
+	-- 	"rcarriga/nvim-notify",
+	-- 	event = { "VeryLazy" },
+	-- 	config = function()
+	-- 		require("notify").setup()
+	-- 		vim.notify = require("notify")
+	-- 		enable_quick_quit("notify")
+	-- 	end,
+	-- },
 	{
 		"stevearc/dressing.nvim",
 		event = { "VeryLazy" },
