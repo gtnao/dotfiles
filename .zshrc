@@ -24,6 +24,9 @@ zinit ice as"command" from"gh-r" \
           atpull"%atclone" src"init.zsh"
 zinit light starship/starship
 
+zinit ice wait"1" lucid from"gh-r" as"program" pick"eza" atload"source ~/.config/zsh/plugins/eza_atload.zsh"
+zinit light "eza-community/eza"
+
 # +----------------------------------------------------------+
 # | Base                                                     |
 # +----------------------------------------------------------+
