@@ -8,7 +8,9 @@ return {
 			"nvim-telescope/telescope.nvim",
 			"ibhagwan/fzf-lua",
 		},
-		config = true,
+		init = function()
+			vim.keymap.nnoremap({ "<leader>gg", "<Cmd>Neogit<CR>" })
+		end,
 	},
 	{
 		"akinsho/git-conflict.nvim",
