@@ -9,7 +9,10 @@ return {
 			"ibhagwan/fzf-lua",
 		},
 		init = function()
-			vim.keymap.nnoremap({ "<leader>gg", "<Cmd>Neogit<CR>" })
+			vim.keymap.set("n", "<Leader>gg", "<Cmd>Neogit<CR>")
+		end,
+		config = function()
+			require("neogit").setup()
 		end,
 	},
 	{
