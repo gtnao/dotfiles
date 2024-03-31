@@ -36,6 +36,23 @@ return {
 					vim.keymap.set("n", "df", vim.lsp.buf.definition, opts)
 				end,
 			})
+			local lspconfig = require("lspconfig")
+			local default_capabilities = require("cmp_nvim_lsp").default_capabilities()
+			if is_ruby_installed() then
+				lspconfig.solargraph.setup({
+					capabilities = default_capabilities,
+					on_attach = function(client, bufnr)
+						if client.supports_method("textDocument/formatting") then
+							vim.api.nvim_create_autocmd("BufWritePre", {
+								buffer = bufnr,
+								callback = function()
+									vim.lsp.buf.format({ async = false })
+								end,
+							})
+						end
+					end,
+				})
+			end
 		end,
 	},
 	{
@@ -70,7 +87,7 @@ return {
 					"mdx_analyzer",
 					"pyright",
 					"rust_analyzer",
-					is_ruby_installed() and "solargraph" or nil,
+					-- is_ruby_installed() and "solargraph" or nil,
 					"terraformls",
 					"tsserver",
 				},
