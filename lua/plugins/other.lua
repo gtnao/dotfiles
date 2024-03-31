@@ -12,6 +12,21 @@ return {
 		end,
 	},
 	{
+		"stevearc/qf_helper.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.keymap.set("n", "<Leader>tq", "<CMD>QFToggle!<CR>")
+			vim.keymap.set("n", "<Leader>tl", "<CMD>LLToggle!<CR>")
+			vim.keymap.set("n", "[q", "<CMD>QFPrev<CR>")
+			vim.keymap.set("n", "]q", "<CMD>QFNext<CR>")
+			vim.keymap.set("n", "[l", "<CMD>LLPrev<CR>")
+			vim.keymap.set("n", "]l", "<CMD>LLNext<CR>")
+		end,
+		config = function()
+			require("qf_helper").setup()
+		end,
+	},
+	{
 		"folke/which-key.nvim",
 		cmd = "WhichKey",
 		enabled = false,
