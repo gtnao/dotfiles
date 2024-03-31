@@ -10,6 +10,8 @@ mkdir -p ~/.config/nvim
 ln -sfn "$(pwd)/init.lua" ~/.config/nvim/init.lua
 ln -sfn "$(pwd)/lua" ~/.config/nvim/lua
 ln -sfn "$(pwd)/luasnip" ~/.config/nvim/luasnip
+mkdir -p ~/.config/git
+ln -sfn "$(pwd)/.config/git/ignore" ~/.config/git/ignore
 ln -sfn "$(pwd)/.tool-versions" ~/.tool-versions
 ln -sfn "$(pwd)/starship.toml" ~/.config/starship.toml
 
