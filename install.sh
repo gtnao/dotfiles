@@ -55,8 +55,8 @@ echo "Please check your SSH public key with 'cat ~/.ssh/id_rsa.pub' and register
 # deploy
 ./deploy.sh
 
-# zsh
-zsh
-
 # nvim setup
 nvim --headless "+Lazy! sync" +qa
+
+# zsh
+zsh
