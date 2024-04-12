@@ -3,5 +3,5 @@
 ## install
 
 ```shellscript
-bash -c "$(wget -O- https://raw.githubusercontent.com/gtnao0219/dotfiles/main/install.sh)"
+bash -c "$(wget -O- https://raw.githubusercontent.com/gtnao/dotfiles/main/install.sh)"
 ```
