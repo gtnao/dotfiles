@@ -14,6 +14,7 @@ sudo apt -y install git
 mkdir -p "${DOTFILES_PARENT_DIR}"
 if [ ! -d "${DOTFILES_DIR}" ]; then
 	git clone https://github.com/gtnao0219/dotfiles.git "${DOTFILES_DIR}"
+	ln -sfn "${DOTFILES_DIR}/.gitconfig" ~/.gitconfig
 	git remote set-url origin git@github.com:gtnao0219/dotfiles.git
 fi
 cd "${DOTFILES_DIR}"
@@ -53,3 +54,9 @@ echo "Please check your SSH public key with 'cat ~/.ssh/id_rsa.pub' and register
 
 # deploy
 ./deploy.sh
+
+# zsh
+zsh
+
+# nvim setup
+nvim --headless "+Lazy! sync" +qa
