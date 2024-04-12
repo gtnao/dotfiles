@@ -50,7 +50,6 @@ if [ ! -f "${HOME}/.ssh/id_rsa" ]; then
 	chmod 0600 "${HOME}/.ssh/id_rsa"
 	chmod 0644 "${HOME}/.ssh/id_rsa.pub"
 fi
-echo "Please check your SSH public key with 'cat ~/.ssh/id_rsa.pub' and register it to your GitHub account if you haven't done so already."
 
 # deploy
 ./deploy.sh
@@ -58,5 +57,5 @@ echo "Please check your SSH public key with 'cat ~/.ssh/id_rsa.pub' and register
 # nvim setup
 nvim --headless "+Lazy! sync" +qa
 
-# zsh
-zsh
+echo "Please check your SSH public key with 'cat ~/.ssh/id_rsa.pub' and register it to your GitHub account if you haven't done so already."
+echo "Please logout and log back in to load the new shell settings."
