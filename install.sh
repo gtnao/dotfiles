@@ -15,9 +15,9 @@ mkdir -p "${DOTFILES_PARENT_DIR}"
 if [ ! -d "${DOTFILES_DIR}" ]; then
 	git clone https://github.com/gtnao/dotfiles.git "${DOTFILES_DIR}"
 	ln -sfn "${DOTFILES_DIR}/.gitconfig" ~/.gitconfig
-	git remote set-url origin git@github.com:gtnao/dotfiles.git
 fi
 cd "${DOTFILES_DIR}"
+git remote set-url origin git@github.com:gtnao/dotfiles.git
 
 # install core packages
 sudo apt -y install build-essential unzip
