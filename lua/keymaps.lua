@@ -7,8 +7,11 @@ vim.keymap.set({ "n", "x" }, ":", ";")
 vim.keymap.set("n", "<Leader>w", [[<Cmd>update<CR>]], { silent = true })
 vim.keymap.set("n", "<Leader>q", [[<Cmd>quit<CR>]])
 
-vim.keymap.set("n", "<Leader>h", "^")
-vim.keymap.set("n", "<Leader>l", "$")
+vim.keymap.set({ "n", "x" }, "<Leader>h", "^")
+vim.keymap.set({ "n", "x" }, "<Leader>l", "$")
+
+vim.keymap.set("x", "<Leader>rp", 'y:%s/<C-r><C-r>"//gc<Left><Left><Left>')
+vim.keymap.set("n", "<Leader>rp", 'yiw:%s/<C-r><C-r>"//gc<Left><Left><Left>')
 
 vim.keymap.set({ "n", "x" }, "j", "gj")
 vim.keymap.set({ "n", "x" }, "k", "gk")
