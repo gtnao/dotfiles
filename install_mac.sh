@@ -47,9 +47,20 @@ if [ ! -f "${HOME}/.ssh/id_rsa" ]; then
 fi
 
 # deploy
-# ./deploy.sh
+./deploy.sh
 
 # nvim setup
 # nvim --headless "+Lazy! sync" +qa
+
+# defaults
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write com.apple.dock orientation -string left
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0.5
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool false
 
 echo "Please check your SSH public key with 'cat ~/.ssh/id_rsa.pub' and register it to your GitHub account if you haven't done so already."
