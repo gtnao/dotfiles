@@ -1,7 +1,7 @@
 tap "homebrew/bundle"
 
 brew "neovim", args: ["HEAD"]
-bew "asdf"
+brew "asdf"
 
 cask "google-chrome"
 cask "raycast"
