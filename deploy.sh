@@ -16,3 +16,6 @@ ln -sfn "$(pwd)/.tool-versions" ~/.tool-versions
 ln -sfn "$(pwd)/starship.toml" ~/.config/starship.toml
 
 ln -sfn "$(pwd)/.config/zsh" ~/.config/zsh
+
+# for local
+ln -sfn "$(pwd)/.config/wezterm" ~/.config/wezterm
