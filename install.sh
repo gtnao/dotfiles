@@ -36,7 +36,9 @@ echo "zsh is now installed and set as the default shell. Please logout and log b
 sudo apt -y install tmux
 
 # install asdf
-git clone https://github.com/asdf-vm/asdf.git "${HOME}/.asdf" --branch v0.14.0
+if [ ! -d "${HOME}/.asdf" ]; then
+	git clone https://github.com/asdf-vm/asdf.git "${HOME}/.asdf" --branch v0.14.0
+fi
 . "${HOME}/.asdf/asdf.sh"
 # install nodejs
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
