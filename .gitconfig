@@ -7,6 +7,8 @@
   defaultBranch = main
 [fetch]
   prune = true
+[pull]
+  rebase = false
 [push]
   default = current
 [alias]
