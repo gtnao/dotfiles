@@ -26,8 +26,6 @@ zinit light starship/starship
 
 zinit ice wait"1" lucid from"gh-r" as"program" pick"ripgrep*/rg"
 zinit light @BurntSushi/ripgrep
-zinit ice wait"1" lucid from"gh-r" as"program" pick"eza" atload"source ~/.config/zsh/plugins/eza_atload.zsh"
-zinit light "eza-community/eza"
 zinit ice wait'1' lucid from"gh-r" as"program" pick"bat*/bat" atload"source ~/.config/zsh/plugins/bat_atload.zsh"
 zinit light @sharkdp/bat
 zinit ice wait'1' lucid from"gh-r" as"program" pick"fd*/fd"
