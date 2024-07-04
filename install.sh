@@ -20,7 +20,7 @@ cd "${DOTFILES_DIR}"
 git remote set-url origin git@github.com:gtnao/dotfiles.git
 
 # install core packages
-sudo apt -y install build-essential unzip
+sudo apt -y install build-essential unzip libfuse2
 
 # install nvim
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
