@@ -25,6 +25,9 @@ return {
 						"^\\.git$",
 					},
 				},
+				view = {
+					adaptive_size = true,
+				},
 			})
 		end,
 	},
