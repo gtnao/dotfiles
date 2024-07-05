@@ -30,6 +30,9 @@ zinit ice wait'1' lucid from"gh-r" as"program" pick"bat*/bat" atload"source ~/.c
 zinit light @sharkdp/bat
 zinit ice wait'1' lucid from"gh-r" as"program" pick"fd*/fd"
 zinit light @sharkdp/fd
+zinit ice wait'1' lucid from"gh-r" as"program"
+zinit light @junegunn/fzf
+
 
 # +----------------------------------------------------------+
 # | Base                                                     |
@@ -46,16 +49,16 @@ HISTORY_IGNORE="(ls|cd|pwd|zsh|exit|cd ..|v|vi|vim|nvim|tig)"
 # +----------------------------------------------------------+
 bindkey -e
 
-_peco-src() {
-  local selected_dir=$(ghq list -p | peco --query "${LBUFFER}")
+_fzf-ghq() {
+  local selected_dir=$(ghq list -p | fzf)
   if [ -n "${selected_dir}" ]; then
     BUFFER="cd ${selected_dir}"
     zle accept-line
   fi
   zle clear-screen
 }
-zle -N _peco-src
-bindkey '^]' _peco-src
+zle -N _fzf-ghq
+bindkey '^]' _fzf-ghq
 
 # +----------------------------------------------------------+
 # | Options                                                  |
