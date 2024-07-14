@@ -7,7 +7,7 @@ node: ## Install nodejs
 	asdf global nodejs 20.11.1
 
 rust: ## Install rust
-	curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 go: ## Install go
 	wget https://go.dev/dl/go1.22.0.linux-amd64.tar.gz
@@ -29,8 +29,12 @@ ruby: ## Install ruby
 python: ## Install python
 	sudo apt -y install build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 	asdf plugin add python https://github.com/asdf-community/asdf-python.git
-	asdf install python 3.12.2
-	asdf global python 3.12.2
+	asdf install python 3.12.3
+	asdf global python 3.12.3
+	asdf plugin-add poetry https://github.com/asdf-community/asdf-poetry.git
+	asdf install poetry 1.8.3
+	asdf global poetry 1.8.3
+	poetry config virtualenvs.in-project true
 
 java: ## Install java
 	sudo apt -y install coreutils curl unzip jq
@@ -49,6 +53,12 @@ docker:
 	sudo apt-get update
 
 	sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+gcloud:
+	curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-477.0.0-linux-x86_64.tar.gz
+	tar -xf google-cloud-cli-477.0.0-linux-x86_64.tar.gz
+	mv ./google-cloud-sdk ~/google-cloud-sdk
+	~/google-cloud-sdk/install.sh
 
 misc:
 	asdf plugin add 1password-cli https://github.com/NeoHsu/asdf-1password-cli.git

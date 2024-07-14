@@ -21,6 +21,7 @@ $haskell\
 $python\
 [](fg:color_blue bg:color_bg3)\
 $docker_context\
+$gcloud\
 [](fg:color_bg3 bg:color_bg1)\
 $time\
 [ ](fg:color_bg1)\
@@ -161,3 +162,8 @@ vimcmd_symbol = '[](bold fg:color_green)'
 vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
 vimcmd_replace_symbol = '[](bold fg:color_purple)'
 vimcmd_visual_symbol = '[](bold fg:color_yellow)'
+
+[gcloud]
+symbol = ' '
+style = "bg:color_bg3"
+format = '[$symbol$account(@$domain)(\($project\))]($style)'

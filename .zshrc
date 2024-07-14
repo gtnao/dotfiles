@@ -128,3 +128,6 @@ fi
 if which tmux >/dev/null 2>&1; then
   test -z "${TMUX}" && (tmux attach || tmux new-session)
 fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
