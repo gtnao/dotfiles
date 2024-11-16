@@ -26,6 +26,7 @@ fi
 
 # ++ Golang +----------------------------------------------------------+
 export GOPATH="${HOME}/dev"
+export GOBIN="${GOPATH}/bin"
 if [[ -d "${GOPATH}/bin" ]]; then
   path+=("${GOPATH}/bin")
 fi
